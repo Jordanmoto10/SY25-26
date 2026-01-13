@@ -12,11 +12,27 @@ lineup = [
     ("The Pythonistas", "Rock", 45),
     ("Syntax Error", "Metal", 60)
 ]
-
+total_time = 0
 if choice == "1":
     print("\n---Current Lineup---")
-    total_time = 0
+    for i, artist in enumerate(lineup):
+        print(str(artist[0]) + "--" + str(artist[1]) + "--" + str(artist[2]) + "minutes")
+    
+        
+        total_time+=artist[2]
     print(f"Total Festival Duration: {total_time} minutes")
+
+elif choice == "2":
+    name = input("Enter Band Name: ")
+    genre = input("Enter Band Genre: ")
+    duration = int(input("Enter Performance Duration (minutes): "))
+    lineup.append((name, genre, duration))
+    print(f"{name} has been added to the lineup.")
+
+elif choice == "3":
+
+    
+
     
 
 
