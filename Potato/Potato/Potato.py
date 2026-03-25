@@ -1,11 +1,11 @@
 weight = int(input("Enter the weight: "))
 
 if weight < 100:
-    grade = "Small"
+    grade = "small"
 elif weight <= 200 and weight > 100:
-    grade = "Medium"
+    grade = "medium"
 else:
-    grade = "Large"
+    grade = "large"
 
 print("This is a " + str(grade) + " potato.")
 
@@ -15,7 +15,7 @@ print("This is a " + str(grade) + " potato.")
 blemish_counts = []
 
 for i in range(5):
-    count = int(input("Enter blemish counts: "))
+    count = int(input("Enter blemishes for potato: "))
     blemish_counts.append(count)
 
 total = sum(blemish_counts)
