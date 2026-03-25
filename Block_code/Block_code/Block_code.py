@@ -92,5 +92,18 @@ while not game_over:
     pygame.display.update()
     clock.tick(30)
 
-pygame.quit()
+ # --- ENEMY RESET & DYNAMIC DIFFICULTY ---
+    if enemy_pos[1] > HEIGHT:
+        enemy_pos[1] = 0
+        enemy_pos[0] = random.randint(0, WIDTH - enemy_size)
+        score += 1
+        # Increase enemy speed each time score goes up
+        enemy_speed += 1
+        # Increase player size for dynamic difficulty
+        player_size += 5
+        # Keep player within bounds after size increase
+        player_pos[0] = min(player_pos[0], WIDTH - player_size)
+        print(f"Score: {score}")
+        
+    pygame.quit()
 
