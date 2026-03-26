@@ -25,6 +25,15 @@ enemy_speed = 10
 score = 0
 game_over = False
 
+# Load enemy images and scale to enemy_size
+dog_img = pygame.image.load("images.jpg")
+dog_img = pygame.transform.scale(dog_img, (enemy_size, enemy_size))
+cat_img = pygame.image.load("cat.png")
+cat_img = pygame.transform.scale(cat_img, (enemy_size, enemy_size))
+
+enemy_images = [dog_img, cat_img]
+current_enemy_img_idx = 0  # 0 for dog, 1 for cat
+
 # Screen shake variables
 shake_frames = 0
 SHAKE_DURATION = 10  # frames
@@ -34,6 +43,10 @@ while not game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_over = True
+        # Switch enemy image on key press (e.g., space bar)
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                current_enemy_img_idx = 1 - current_enemy_img_idx  # Toggle between 0 and 1
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
@@ -85,25 +98,12 @@ while not game_over:
         offset_y = 0
 
     screen.fill((0, 0, 0))
-    # Draw enemy and player with shake offset
-    pygame.draw.rect(screen, RED, (enemy_pos[0] + offset_x, enemy_pos[1] + offset_y, enemy_size, enemy_size))
+    # Draw enemy image with shake offset
+    screen.blit(enemy_images[current_enemy_img_idx], (enemy_pos[0] + offset_x, enemy_pos[1] + offset_y))
+    # Draw player as a blue rectangle
     pygame.draw.rect(screen, BLUE, (player_pos[0] + offset_x, player_pos[1] + offset_y, player_size, player_size))
 
     pygame.display.update()
     clock.tick(30)
 
- # --- ENEMY RESET & DYNAMIC DIFFICULTY ---
-    if enemy_pos[1] > HEIGHT:
-        enemy_pos[1] = 0
-        enemy_pos[0] = random.randint(0, WIDTH - enemy_size)
-        score += 1
-        # Increase enemy speed each time score goes up
-        enemy_speed += 1
-        # Increase player size for dynamic difficulty
-        player_size += 5
-        # Keep player within bounds after size increase
-        player_pos[0] = min(player_pos[0], WIDTH - player_size)
-        print(f"Score: {score}")
-        
-    pygame.quit()
-
+pygame.quit()
